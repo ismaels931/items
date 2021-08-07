@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+
+		<meta charset="utf-8">
+		<title>Slide2</title>
+		<style type="text/css">
+			.exterior {
+				width: 600px;
+				height: 400px;
+				display: flex; /*Alinea horizontalmente los elementos que contiene provocando que se active el scroll horizontal (overflow)*/
+				overflow: hidden;
+				position: absolute;
+				left: 300px;
+				top: 100px;
+			}
+			img {
+				width: 600px;
+				height: 400px;
+			}
+
+			.interior {
+				position: relative;
+
+				animation: anima 8s ease-in-out 2s infinite alternate;
+			}
+
+			@keyframes anima {
+				0% {
+					left: 0px;
+				}
+
+				33% {
+					left: -600px;
+				}
+
+				66% {
+					left: -1200px;
+				}
+
+				100% {
+					left: -1800px;
+				}
+			}
+		</style>
+
+	</head>
+	<body>
+		<div class="exterior">
+			<div class="interior"><img src="dia1.jpg"></div>
+			<div class="interior"><img src="dia2.jpg"></div>
+			<div class="interior"><img src="dia3.jpg"></div>
+			<div class="interior"><img src="dia4.jpg"></div>
+		</div>
+	</body>
+</html>

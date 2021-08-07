@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+
+		<meta charset="utf-8">
+		<title>Slide2</title>
+		<style type="text/css">
+			div {
+				width: 600px;
+				height: 400px;
+				position: absolute;
+				left: 300px;
+				top: 100px;
+				overflow: hidden;
+			}
+
+			img {
+				width: 600px;
+				height: 400px;
+				margin-top: -4px; /*Elimina el espacio en blanco entre los elementos*/
+				position: relative;
+				top: 4px; /*Centra las imágenes en el contenedor (div)*/
+
+				animation: anima 5s ease-in-out 1s infinite alternate none;
+			}
+
+			@keyframes anima {
+				0% {
+					top: 0px;
+				}
+
+				33% {
+					top: -396px;
+				}
+
+				66% {
+					top: -796px;
+				}
+
+				100% {
+					top: -1196px;
+				}
+			}
+		</style>
+
+	</head>
+	<body>
+		<div>
+			<img src="dia1.jpg">
+			<img src="dia2.jpg">
+			<img src="dia3.jpg">
+			<img src="dia4.jpg">
+		</div>
+	</body>
+</html>
