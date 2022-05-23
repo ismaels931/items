@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sandbox</title>
+    </head>
+    <body>
+        <h1>Editor de píxel arte</h1>
+        <canvas width="600" height="300" style="border: 1px solid black;"></canvas><br>
+        <input type="button" value="Undo">
+        <input type="button" value="Draw">
+    </body>
+    <script>
+        //event.button informa sobre el botón que estamos presionando identificandolo mediante un número.
+        //En cambio event.buttons informa sobre la cantidad de botones que estamos presionando
+        let canvas = document.querySelector("canvas");
+        let ctx = canvas.getContext("2d");
+        let pixels = [];
+        let state = 0;
+        let undo = document.getElementsByTagName("input")[0];
+        let draw = document.getElementsByTagName("input")[1];
+
+        undo.addEventListener("click", borrar);
+
+        function borrar() {
+            let i = pixels.length - 1;
+            while (i >= 0 && state == pixels[i].state) {
+                ctx.fillStyle = "white";
+                ctx.fillRect(pixels[i].x, pixels[i].y, 5, 5);
+                pixels.pop();
+                --i;
+            }
+            --state;
+        }
+
+        draw.addEventListener("click", dibujar);
+
+        function dibujar() {
+            canvas.addEventListener("mousedown", dibujarDos);
+            
+            function dibujarDos(event) {
+                let abcisa = event.clientX - canvas.getBoundingClientRect().x;
+                let ordenada = event.clientY - Math.floor(canvas.getBoundingClientRect().y);
+
+                console.log("Coordenada x: " + abcisa);
+                console.log("Coordenada y: " + ordenada);
+
+                ++state;
+
+                pixels.push({ x: abcisa, y: ordenada, state: state });
+
+                ctx.fillStyle = "red";
+                ctx.fillRect(abcisa, ordenada, 5, 5);
+
+                if (event.button == 0) canvas.addEventListener("mousemove", moved);
+
+                function moved(event) {
+                    //Si en la condición de abajo utilizaramos event.button, siempre borraría
+                    //el evento y no surtiría ningún efecto.
+                    if (event.buttons == 0) {
+                        canvas.removeEventListener("mousemove", moved);
+                        //canvas.removeEventListener("mousedown", dibujarDos);
+                    }
+                    else {
+                        let abcisa = event.clientX - canvas.getBoundingClientRect().x;
+                        let ordenada = event.clientY - Math.floor(canvas.getBoundingClientRect().y);
+
+                        console.log("Coordenada x: " + abcisa);
+                        console.log("Coordenada y: " + ordenada);
+
+                        pixels.push({ x: abcisa, y: ordenada, state: state });
+
+                        ctx.fillStyle = "red";
+                        ctx.fillRect(abcisa, ordenada, 5, 5);
+                    }
+                }
+
+            }
+        }
+    </script>
+</html>
